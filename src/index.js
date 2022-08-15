@@ -1,11 +1,17 @@
 const express = require('express');
+const path = require('path');
+
 const { PORT, CONNECTION_STRING } = require('./config/constants');
 const initDatabase = require('./config/database');
+const initHandlebars = require('./config/express-handlebars');
+
 
 const app = express();
+initHandlebars(app);
+app.use(express.static(path.join(__dirname, './static')));
 
 app.get('/', (req, res) => {
-    res.send('Hello world');
+    res.render('home');
 });
 
 initDatabase(CONNECTION_STRING)
