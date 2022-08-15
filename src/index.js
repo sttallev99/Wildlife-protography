@@ -4,15 +4,13 @@ const path = require('path');
 const { PORT, CONNECTION_STRING } = require('./config/constants');
 const initDatabase = require('./config/database');
 const initHandlebars = require('./config/express-handlebars');
+const routes = require('./routes');
 
 
 const app = express();
 initHandlebars(app);
 app.use(express.static(path.join(__dirname, './static')));
-
-app.get('/', (req, res) => {
-    res.render('home');
-});
+app.use(routes);
 
 initDatabase(CONNECTION_STRING)
     .then(() => {
