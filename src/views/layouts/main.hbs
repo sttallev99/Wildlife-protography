@@ -21,12 +21,15 @@
                     <li><a href="/">Home</a></li>
                     <li><a href="#">All Posts</a></li>
                     <!-- Logged users -->
+                    {{#if user}}
                     <li><a href="#">Create Post</a></li>
-                    <li><a href="#">Posts of {{email-of-user}}</a></li>
+                    <li><a href="#">Posts of {{user.email}}</a></li>
                     <li><a href="/logout">Logout</a></li>
+                    {{else}}
                     <!-- Guest users -->
                     <li><a href="/register">Register</a></li>
                     <li><a href="/login">Login</a></li>
+                    {{/if}}
                 </ul>
             </nav>
             {{{body}}}
