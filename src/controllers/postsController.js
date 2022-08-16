@@ -26,4 +26,11 @@ router.post('/create', async(req, res) => {
     res.redirect('/posts')
 });
 
+router.get('/details/:id', async(req, res) => {
+    const post = await postService.getOne(req.params.id);
+    const fullName = `${post.author.firstName} ${post.author.lastName}`;
+
+    res.render('posts/details', { ...post, fullName });
+});
+
 module.exports = router;
