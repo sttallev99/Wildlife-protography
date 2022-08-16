@@ -10,6 +10,7 @@ const routes = require('./routes');
 const app = express();
 initHandlebars(app);
 app.use(express.static(path.join(__dirname, './static')));
+app.use(express.urlencoded({ extended: true }))
 app.use(routes);
 
 initDatabase(CONNECTION_STRING)
