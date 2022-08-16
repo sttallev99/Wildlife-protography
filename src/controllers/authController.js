@@ -2,6 +2,7 @@ const router = require('express').Router();
 
 const authService = require('../services/authService');
 const { TOKEN_COOKIE_NAME } = require('../constants');
+
 router.get('/register', (req, res) => {
     res.render('auth/register');
 });
