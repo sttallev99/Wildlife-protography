@@ -18,6 +18,4 @@ exports.auth = function(req, res, next) {
         res.locals.user = decodedToken;
         next();
     });
-
-
 }

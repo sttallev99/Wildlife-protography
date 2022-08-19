@@ -30,7 +30,14 @@ router.get('/details/:id', async(req, res) => {
     const post = await postService.getOne(req.params.id);
     const fullName = `${post.author.firstName} ${post.author.lastName}`;
 
-    res.render('posts/details', { ...post, fullName });
+    let isValid = false;
+    let isVote = post?.votes.some(u => req.user._id == u);
+    
+    if(post.author._id == req.user?._id) {
+        isValid = true
+    }
+
+    res.render('posts/details', { ...post, fullName, isValid, isVote });
 });
 
 module.exports = router;
