@@ -32,12 +32,21 @@ router.get('/details/:id', async(req, res) => {
 
     let isValid = false;
     let isVote = post?.votes.some(u => req.user._id == u);
-    
+
     if(post.author._id == req.user?._id) {
         isValid = true
     }
 
     res.render('posts/details', { ...post, fullName, isValid, isVote });
+});
+
+router.get('/voteUp/:id', async(req, res) => {
+    const userId = req.user._id;
+    const postId = req.params.id;
+    console.log(postId)
+    console.log(userId)
+    await postService.incRating(userId, postId);
+    res.redirect(`/posts/details/${req.params.id}`)
 });
 
 module.exports = router;

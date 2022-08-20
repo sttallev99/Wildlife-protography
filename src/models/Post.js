@@ -32,7 +32,11 @@ const postSchema = new mongoose.Schema({
     votes: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    }]
+    }],
+    rating: {
+        type: Number,
+        default: 0
+    }
 });
 
 const Post = mongoose.model('Post', postSchema);
