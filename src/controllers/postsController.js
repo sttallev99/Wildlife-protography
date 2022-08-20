@@ -28,16 +28,19 @@ router.post('/create', async(req, res) => {
 
 router.get('/details/:id', async(req, res) => {
     const post = await postService.getOne(req.params.id);
+    const postData = post.toObject();
+    const names = post.getNames();
     const fullName = `${post.author.firstName} ${post.author.lastName}`;
-
     let isValid = false;
-    let isVote = post?.votes.some(u => req.user._id == u);
+    let votesId = postData.votes.map(v => v._id);
+    let isVote = votesId.some(u => req.user._id == u);
 
-    if(post.author._id == req.user?._id) {
+    if(postData.author._id == req.user?._id) {
         isValid = true
     }
 
-    res.render('posts/details', { ...post, fullName, isValid, isVote });
+
+    res.render('posts/details', { ...postData, fullName, isValid, isVote, names });
 });
 
 router.get('/voteUp/:id', async(req, res) => {
@@ -73,6 +76,11 @@ router.post('/edit/:id', async(req, res) => {
     await postService.editPost(postId, newData);
 
     res.redirect(`/posts/details/${req.params.id}`);
+});
+
+router.get('/delete/:id', async(req, res) => {
+    await postService.deletePost(req.params.id);
+    res.redirect('/posts');
 });
 
 module.exports = router;

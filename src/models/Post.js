@@ -39,6 +39,10 @@ const postSchema = new mongoose.Schema({
     }
 });
 
+postSchema.method('getNames', function() {
+    return this.votes.map(x => x.email).join(', ');
+});
+
 const Post = mongoose.model('Post', postSchema);
 
 module.exports = Post;

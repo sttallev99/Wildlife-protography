@@ -21,7 +21,7 @@
                             {{#if isValid}}
                                 <!-- Only for registered user and author of the post -->
                                 <a href="/posts/edit/{{_id}}" class="edit-btn">Edit</a>
-                                <a href="#" class="del-btn">Delete</a>
+                                <a href="/posts/delete/{{_id}}" class="del-btn">Delete</a>
                             {{else}}
                             <!-- logged in users, who have not yet voted-->
                                 {{#if isVote}}
@@ -54,7 +54,7 @@
                     </div>
                     {{#if votes}}
                     <!-- If there are already people who have cast their vote for the post, separate their emails with a comma and a space ", " -->
-                    <p class="disc">People who voted for the post - alex@gmai.com, petar@gmail.com, petq@gmail.com</p>
+                    <p class="disc">People who voted for the post - {{names}}</p>
                     {{else}}
                     <!-- If not display: -->
                     <p class="disc">People who voted for the post - No one has voted yet.</p>
