@@ -43,9 +43,14 @@ router.get('/details/:id', async(req, res) => {
 router.get('/voteUp/:id', async(req, res) => {
     const userId = req.user._id;
     const postId = req.params.id;
-    console.log(postId)
-    console.log(userId)
     await postService.incRating(userId, postId);
+    res.redirect(`/posts/details/${req.params.id}`)
+});
+
+router.get('/voteDown/:id', async(req, res) => {
+    const userId = req.user._id;
+    const postId = req.params.id;
+    await postService.decRating(userId, postId);
     res.redirect(`/posts/details/${req.params.id}`)
 });
 

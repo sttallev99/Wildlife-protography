@@ -7,3 +7,7 @@ exports.incRating = async(userId, postId) => Post.findByIdAndUpdate(postId, {
     $push: { votes: userId },
     $inc: { rating: 1 }
 });
+exports.decRating = async(userId, postId) => Post.findByIdAndUpdate(postId, {
+    $push: { votes: userId },
+    $inc: { rating: -1}
+});
