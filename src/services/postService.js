@@ -11,3 +11,4 @@ exports.decRating = async(userId, postId) => Post.findByIdAndUpdate(postId, {
     $push: { votes: userId },
     $inc: { rating: -1}
 });
+exports.editPost = async(id, newData) => Post.findByIdAndUpdate(id, newData);

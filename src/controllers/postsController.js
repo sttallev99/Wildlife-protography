@@ -54,4 +54,25 @@ router.get('/voteDown/:id', async(req, res) => {
     res.redirect(`/posts/details/${req.params.id}`)
 });
 
+router.get('/edit/:id', async(req, res) => {
+    const postId = req.params.id;
+    const post = await postService.getOne(postId);
+    res.render('posts/edit', { ...post });
+});
+
+router.post('/edit/:id', async(req, res) => {
+    const postId = req.params.id;
+    const newData = {
+        title: req.body.title,
+        keyword: req.body.keyword,
+        location: req.body.location,
+        dateOfCreation: req.body.dateOfCreation,
+        image: req.body.image,
+        description: req.body.description
+    }
+    await postService.editPost(postId, newData);
+
+    res.redirect(`/posts/details/${req.params.id}`);
+});
+
 module.exports = router;
